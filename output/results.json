@@ -1,0 +1,22 @@
+{
+  "sorting": [
+    {"algorithm": "Bubble Sort", "input_size": 3000, "time_us": 12500},
+    {"algorithm": "Merge Sort", "input_size": 10000, "time_us": 1200},
+    {"algorithm": "Quick Sort", "input_size": 10000, "time_us": 850},
+    {"algorithm": "C++ std::sort", "input_size": 10000, "time_us": 320}
+  ],
+  "searching": [
+    {"algorithm": "Linear Search", "input_size": 5000, "time_ns": 15000},
+    {"algorithm": "Binary Search", "input_size": 5000, "time_ns": 45}
+  ],
+  "graph": [
+    {"algorithm": "BFS", "vertices": 1000, "time_us": 450},
+    {"algorithm": "DFS", "vertices": 1000, "time_us": 380},
+    {"algorithm": "Dijkstra", "vertices": 1000, "time_us": 1200},
+    {"algorithm": "Prim's MST", "vertices": 1000, "time_us": 1500}
+  ],
+  "dp": [
+    {"algorithm": "0/1 Knapsack", "items": 500, "time_us": 2500},
+    {"algorithm": "LCS", "string_length": 20, "time_us": 150}
+  ]
+}

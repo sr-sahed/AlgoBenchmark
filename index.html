@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Algorithm Benchmarking</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-900 text-gray-100 font-sans min-h-screen flex flex-col justify-between">
+
+    <header class="bg-gray-800 shadow-md py-6 px-10 border-b border-gray-700">
+        <h1 class="text-3xl font-bold text-blue-400">⚡ Real-Time AlgoBenchmark Suite</h1>
+        <p class="text-gray-400 text-sm mt-1">Execute C++ Algorithms Dynamically from Web UI</p>
+    </header>
+
+    <main class="container mx-auto px-6 py-10 max-w-2xl">
+        <div class="bg-gray-800 p-8 rounded-xl shadow-lg border border-gray-700">
+            <h2 class="text-xl font-semibold mb-6 text-blue-300">Configure & Run Benchmark</h2>
+            
+            <div class="mb-4">
+                <label class="block text-gray-300 mb-2">Select Algorithm:</label>
+                <select id="algoSelect" class="w-full bg-gray-900 border border-gray-750 p-3 rounded-lg text-white">
+                    <optgroup label="Searching">
+                        <option value="linearsearch">Linear Search (O(N))</option>
+                        <option value="binarysearch">Binary Search (O(log N))</option>
+                    </optgroup>
+                    <optgroup label="Sorting">
+                        <option value="bubble">Bubble Sort (O(N^2))</option>
+                        <option value="mergesort">Merge Sort (O(N log N))</option>
+                        <option value="quicksort">Quick Sort (O(N log N))</option>
+                        <option value="stdsort">C++ std::sort (IntroSort)</option>
+                    </optgroup>
+                    <optgroup label="Graph Algorithms">
+                        <option value="bfs">BFS (Breadth-First Search)</option>
+                        <option value="dfs">DFS (Depth-First Search)</option>
+                        <option value="dijkstra">Dijkstra's Shortest Path</option>
+                        <option value="prim">Prim's MST</option>
+                    </optgroup>
+                    <optgroup label="Dynamic Programming">
+                        <option value="knapsack">0/1 Knapsack</option>
+                        <option value="lcs">Longest Common Subsequence (LCS)</option>
+                    </optgroup>
+                </select>
+            </div>
+
+            <div class="mb-6">
+                <label class="block text-gray-300 mb-2">Input Size (N):</label>
+                <input type="number" id="inputSize" value="10000" class="w-full bg-gray-900 border border-gray-700 p-3 rounded-lg text-white">
+            </div>
+
+            <button onclick="runBenchmark()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-lg transition duration-200">
+                Run C++ Benchmark 🚀
+            </button>
+
+            <!-- Result Box -->
+            <div id="resultBox" class="mt-8 p-4 bg-gray-900 border border-gray-700 rounded-lg hidden">
+                <h3 class="text-green-400 font-bold mb-2">Real-Time Execution Result:</h3>
+                <p id="outputDetails" class="text-gray-300 font-mono text-sm"></p>
+            </div>
+        </div>
+    </main>
+
+    <footer class="text-center py-6 text-gray-500 text-sm border-t border-gray-800">
+        <p>C++ Backend Powered by Python Flask</p>
+    </footer>
+
+    <script>
+        async function runBenchmark() {
+            const algo = document.getElementById('algoSelect').value;
+            const size = document.getElementById('inputSize').value;
+            const resultBox = document.getElementById('resultBox');
+            const outputDetails = document.getElementById('outputDetails');
+
+            outputDetails.innerText = "Running C++ Engine in background...";
+            resultBox.classList.remove('hidden');
+
+            try {
+                const response = await fetch('/run-benchmark', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ algorithm: algo, size: parseInt(size) })
+                });
+
+                const data = await response.json();
+                
+                if(data.error) {
+                    outputDetails.innerText = "Error: " + data.error;
+                } else {
+                    outputDetails.innerHTML = `
+                        Algorithm: <span class="text-blue-300">${data.algorithm}</span><br>
+                        Input Size (N): <span class="text-yellow-300">${data.input_size}</span><br>
+                        Execution Time: <span class="text-green-400 font-bold">${data.time}</span> units
+                    `;
+                }
+            } catch (err) {
+                outputDetails.innerText = "Failed to connect to backend server.";
+            }
+        }
+    </script>
+</body>
+</html>

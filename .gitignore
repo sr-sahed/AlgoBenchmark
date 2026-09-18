@@ -1,0 +1,13 @@
+# C++ binaries
+output/benchmark
+*.dSYM/
+
+# Python cache & virtual environment
+__pycache__/
+*.pyc
+venv/
+.venv
+.env
+
+# macOS system files
+.DS_Store
