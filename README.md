@@ -4,6 +4,16 @@ A high-performance algorithm benchmarking platform built with a **C++ Core Engin
 
 ---
 
+## 🖼️ Project Screenshots
+
+Here is a quick look at the real-time web interface:
+
+### 1. Dashboard & Algorithm Selection
+![Dashboard UI](assets/dashboard-ui.png)
+
+### 2. Execution Result
+![Result View](assets/sorting-demo.png)
+
 ## 🚀 Key Features
 
 * **C++17 Engine:** High-precision execution time measurement (`std::chrono`) for raw performance optimization.
